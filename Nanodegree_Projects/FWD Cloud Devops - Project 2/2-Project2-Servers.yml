@@ -11,6 +11,17 @@ Parameters:
     InsType:
         Description: Instance Type to deploy
         Type: String
+    AutoScaleMin:
+        Description: Min Number of Instance in autoscaling group
+        Type: String
+    AutoScaleMax:
+        Description: Max Number of Instance in autoscaling group
+        Type: String
+    S3BucketName:
+        Description: S3 Bucket Name
+        Type: String
+
+Transform: S3Objects
 
 Resources:
   LBSecGroup:
@@ -58,9 +69,11 @@ Resources:
           apt-get update -y
           apt-get install apache2 -y
           systemctl start apache2.service
+          systemctl enable apache2.service
           cd /var/www/html
           echo "Udacity Demo Web Server Up and Running!" > index.html        
       ImageId: !Ref AMItoUse
+      IamInstanceProfile: !Ref ProfileWithRolesForOurApp
       SecurityGroups:
       - Ref: WebServerSecGroup
       InstanceType: !Ref InsType
@@ -77,8 +90,8 @@ Resources:
           !Sub "${EnvironmentName}-PRIV-NETS"
       LaunchConfigurationName:
         Ref: WebAppLaunchConfig
-      MinSize: '4'
-      MaxSize: '6'
+      MinSize: !Ref AutoScaleMin
+      MaxSize: !Ref AutoScaleMax
       TargetGroupARNs:
       - Ref: WebAppTargetGroup
 

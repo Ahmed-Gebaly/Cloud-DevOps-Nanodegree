@@ -10,5 +10,17 @@
 	{
 		"ParameterKey": "InsType",
 		"ParameterValue": "t3.medium"
+	},
+	{
+		"ParameterKey": "AutoScaleMin",
+		"ParameterValue": "4"
+	},
+	{
+		"ParameterKey": "AutoScaleMax",
+		"ParameterValue": "6"
+	},
+	{
+		"ParameterKey": "S3BucketName",
+		"ParameterValue": "project-12345789-bucket"
 	}
 ]
