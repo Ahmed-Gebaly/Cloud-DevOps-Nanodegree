@@ -66,6 +66,7 @@ Resources:
     ProfileWithRolesForOurApp:
       Type: AWS::IAM::InstanceProfile
       Properties: 
+        Path: /
         Roles:
           - Fn::ImportValue:
               !Sub ${EnvironmentName}-S3ReadOnlyRole
@@ -76,13 +77,14 @@ Resources:
         UserData:
           Fn::Base64: !Sub
           - |
-            !/bin/bash
-            apt-get update -y
-            apt-get install apache2 -y
-            systemctl start apache2.service
-            systemctl enable apache2.service
-            apt-get install awscli -y
-            aws s3 cp  s3://${S3Name} /var/www/html  --recursive
+            #!/bin/bash
+            sudo apt-get update -y
+            sudo apt-get install apache2 -y
+            sudo systemctl start apache2.service
+            sudo systemctl enable apache2.service
+            sudo apt-get install awscli -y
+            sudo aws s3 cp  s3://${S3Name} /var/www/html  --recursive
+            sudo systemctl reload apache2.service
           -  S3Name: 
               Fn::ImportValue:
                 !Sub ${EnvironmentName}-BucketName
