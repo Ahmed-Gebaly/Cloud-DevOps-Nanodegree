@@ -1,4 +1,4 @@
-[
+	[
 	{
 		"ParameterKey": "EnvironmentName",
 		"ParameterValue": "UdacityProject"
@@ -20,7 +20,7 @@
 		"ParameterValue": "6"
 	},
 	{
-		"ParameterKey": "S3BucketName",
-		"ParameterValue": "project-12345789-bucket"
+		"ParameterKey": "KeyPair",
+		"ParameterValue": "Private-Subnet"
 	}
 ]
