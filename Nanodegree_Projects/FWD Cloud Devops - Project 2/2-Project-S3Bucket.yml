@@ -28,13 +28,18 @@ Resources:
         Policies:
           - PolicyName: S3ReadOnlyPolicy
             PolicyDocument:
-              Version: "2012-10-17"
+              Version: '2012-10-17'
               Statement:
-                - Effect: Allow
-                  Action:
-                  - s3:Get*
-                  - s3:List*
-                  Resource: "arn:aws:s3:::project-12345789-bucket"
+              - Effect: Allow
+                Action:
+                - s3:List*
+                Resource:
+                - arn:aws:s3:::project-12345789-bucket
+              - Effect: Allow
+                Action:
+                - s3:Get*
+                Resource:
+                - arn:aws:s3:::project-12345789-bucket/*
 
 Outputs:
     BucketName: 
